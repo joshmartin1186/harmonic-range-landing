@@ -133,15 +133,15 @@
   .btn-primary {
     background-color: var(--terracotta);
     color: var(--paper);
-    box-shadow: 3px 3px 0 var(--ink);
+    box-shadow: 0 0 7px 1px rgba(184,92,52,0.4), 3px 3px 0 var(--ink);
   }
-  .btn-primary:hover { box-shadow: 4px 5px 0 var(--ink); }
+  .btn-primary:hover { box-shadow: 0 0 9px 1px rgba(184,92,52,0.5), 4px 5px 0 var(--ink); }
   .btn-secondary {
     background-color: transparent;
     color: var(--ink);
-    box-shadow: 3px 3px 0 rgba(27,32,54,0.35);
+    box-shadow: 0 0 6px 1px rgba(27,32,54,0.16), 3px 3px 0 rgba(27,32,54,0.35);
   }
-  .btn-secondary:hover { box-shadow: 4px 5px 0 rgba(27,32,54,0.35); }
+  .btn-secondary:hover { box-shadow: 0 0 8px 1px rgba(27,32,54,0.2), 4px 5px 0 rgba(27,32,54,0.35); }
 
   .hero-band { padding: 0; }
   .hero-band img {
@@ -202,14 +202,30 @@
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
 
   .interface-shot {
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto 44px;
-    border: 2px solid var(--ink);
-    border-radius: 10px;
+    background: var(--paper);
+    padding: 16px 16px 28px;
+    border: 1.5px solid var(--ink);
+    border-radius: 4px;
+    transform: rotate(-0.6deg);
+    box-shadow: 0 0 10px 1px rgba(184,92,52,0.16), 7px 9px 0 rgba(27,32,54,0.2);
+  }
+  .interface-shot .frame {
+    border: 1.5px solid var(--ink);
+    border-radius: 3px;
     overflow: hidden;
-    box-shadow: 6px 8px 0 rgba(27,32,54,0.18);
   }
   .interface-shot img { display: block; width: 100%; height: auto; }
+  .interface-shot .caption {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    margin: 12px 0 0;
+  }
 
   .knob-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   @media (max-width: 760px) { .knob-grid { grid-template-columns: 1fr; } }
@@ -385,7 +401,10 @@
       plugin window. What you buy is what's on the faceplate.
     </p>
     <div class="interface-shot reveal">
-      <img src="pedal-faceplate.jpg" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a hand-illustrated mountain faceplate">
+      <div class="frame">
+        <img src="pedal-faceplate.jpg" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a hand-illustrated mountain faceplate">
+      </div>
+      <p class="caption">Plate No. 01 &middot; Harmonic Range</p>
     </div>
     <div class="knob-grid">
       <div class="knob-card reveal">
