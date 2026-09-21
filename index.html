@@ -7,11 +7,11 @@
 <meta name="description" content="Sawatch Audio makes tools that sound like somewhere. Harmonic Range: warmth, terrain, and altitude in three knobs. $49, one time.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&family=Special+Elite&family=Archivo:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik+Distressed&family=Special+Elite&family=Archivo:wght@400;500;600;700;800&display=swap">
 
 <style>
   :root {
-    --parchment: #F8E5CA;
+    --parchment: #F4F1EB;
     --ink: #1b2036;
     --terracotta: #b85c34;
     --terracotta-deep: #8a3f20;
@@ -23,7 +23,7 @@
   body {
     margin: 0;
     background-color: var(--parchment);
-    background-image: url("assets/nano-banana/paper-texture.png");
+    background-image: url("assets/nano-banana/paper-texture-v2.jpg");
     background-repeat: repeat;
     color: var(--ink);
     font-family: 'Archivo', -apple-system, sans-serif;
@@ -80,12 +80,36 @@
       rgba(0,0,0,0.18) calc(100% - 55px),
       transparent 100%);
   }
+  .edge-fade-both-tight {
+    mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 14px,
+      rgba(0,0,0,0.5) 30px,
+      rgba(0,0,0,0.82) 48px,
+      black 66px,
+      black calc(100% - 66px),
+      rgba(0,0,0,0.82) calc(100% - 48px),
+      rgba(0,0,0,0.5) calc(100% - 30px),
+      rgba(0,0,0,0.18) calc(100% - 14px),
+      transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 14px,
+      rgba(0,0,0,0.5) 30px,
+      rgba(0,0,0,0.82) 48px,
+      black 66px,
+      black calc(100% - 66px),
+      rgba(0,0,0,0.82) calc(100% - 48px),
+      rgba(0,0,0,0.5) calc(100% - 30px),
+      rgba(0,0,0,0.18) calc(100% - 14px),
+      transparent 100%);
+  }
 
   /* Display type: the same weathered/ink-bled letterform family as the
      printed headlines baked into the artwork, so real text reads as part
      of the same printed sheet instead of clean web type laid over it. */
   h1, h2, .display {
-    font-family: 'Rubik Distressed', 'Archivo', sans-serif;
+    font-family: 'Anton', 'Archivo', sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.01em;
@@ -113,7 +137,7 @@
     position: absolute;
     left: 0; right: 0; bottom: -2px;
     height: 4px;
-    background-image: url("assets/nano-banana/rule-line.jpg");
+    background-image: url("assets/nano-banana/rule-line-tight.jpg");
     background-size: cover;
     background-position: center;
   }
@@ -170,6 +194,10 @@
   /* ---------- Full-bleed nano-banana section art ---------- */
   .art-frame { position: relative; width: 100%; line-height: 0; }
   .art-frame img { display: block; width: 100%; height: auto; }
+  .art-frame.zoom-crop { overflow: hidden; }
+  .art-frame.zoom-crop img { transform: scale(1.18) translateY(-2%); transform-origin: 50% 0%; }
+  .art-frame.crop-height { aspect-ratio: 2.69; overflow: hidden; }
+  .art-frame.crop-height img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
   .hero-btn {
     position: absolute;
@@ -352,13 +380,13 @@
   </div>
 </nav>
 
-<div class="art-frame">
-  <img class="edge-fade-bottom" src="assets/nano-banana/section-hero.jpg" alt="Sawatch Audio: a figure playing guitar overlooking western mountains at dusk">
+<div class="art-frame zoom-crop">
+  <img class="edge-fade-bottom" src="assets/nano-banana/section-hero-v2.jpg" alt="Sawatch Audio: Sounds of the West — a hiker overlooking western mountains at dusk">
   <a class="hero-btn" href="#sound" aria-label="Explore the sound"></a>
 </div>
 
-<div class="art-frame">
-  <img class="edge-fade-both" src="assets/nano-banana/section-philosophy.jpg" alt="A small campfire with smoke drifting up into a starry sky">
+<div class="art-frame crop-height">
+  <img class="edge-fade-both-tight" src="assets/nano-banana/section-philosophy.jpg" alt="A small campfire with smoke drifting up into a starry sky">
 </div>
 <section id="philosophy">
   <div class="wrap reveal">
