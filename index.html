@@ -220,13 +220,80 @@
   .gear-audio {
     padding: 0 32px 24px;
   }
-  .gear-audio .eyebrow { margin-bottom: 8px; }
-  .gear-audio audio { width: 100%; }
+  .gear-audio .eyebrow { margin-bottom: 10px; }
   .gear-audio .caption {
     font-family: 'Special Elite', 'Archivo', monospace;
     font-size: 12px;
     color: var(--muted);
-    margin: 6px 0 0;
+    margin: 8px 0 0;
+  }
+
+  /* Custom transport -- native <audio controls> can't be styled
+     consistently across browsers, so this drives a real <audio> element
+     via JS but draws its own ink-and-parchment UI. */
+  .audio-player { display: flex; align-items: center; gap: 14px; }
+  .audio-play {
+    flex: none;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 2px solid var(--ink);
+    background: var(--terracotta);
+    color: var(--parchment);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .audio-play:hover { transform: translateY(-1px); box-shadow: 3px 3px 0 var(--ink); }
+  .audio-play svg { width: 16px; height: 16px; fill: currentColor; }
+  .audio-play .icon-pause { display: none; }
+  .audio-player.is-playing .icon-play { display: none; }
+  .audio-player.is-playing .icon-pause { display: block; }
+
+  .audio-track {
+    position: relative;
+    flex: 1;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .audio-track::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 3px;
+    transform: translateY(-50%);
+    background: rgba(27,32,54,0.22);
+    border-radius: 2px;
+  }
+  .audio-progress {
+    position: absolute;
+    left: 0; top: 50%;
+    height: 3px;
+    width: 0%;
+    transform: translateY(-50%);
+    background: var(--terracotta);
+    border-radius: 2px;
+  }
+  .audio-handle {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    width: 12px; height: 12px;
+    background: var(--ink);
+    border: 2px solid var(--parchment);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px var(--ink);
+  }
+  .audio-time {
+    flex: none;
+    font-family: 'Special Elite', 'Archivo', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    min-width: 84px;
+    text-align: right;
   }
   .gear-card-body { padding: 28px 32px 32px; }
   .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; margin: 0 0 8px; text-transform: uppercase; }
@@ -340,7 +407,18 @@
       </div>
       <div class="gear-audio">
         <p class="eyebrow">Listen</p>
-        <audio controls preload="none" src="assets/audio/peak-light.mp3"></audio>
+        <div class="audio-player">
+          <audio preload="none" src="assets/audio/peak-light.mp3"></audio>
+          <button class="audio-play" type="button" aria-label="Play">
+            <svg class="icon-play" viewBox="0 0 24 24"><polygon points="6,4 20,12 6,20"/></svg>
+            <svg class="icon-pause" viewBox="0 0 24 24"><rect x="5" y="4" width="5" height="16"/><rect x="14" y="4" width="5" height="16"/></svg>
+          </button>
+          <div class="audio-track">
+            <div class="audio-progress"></div>
+            <div class="audio-handle"></div>
+          </div>
+          <div class="audio-time"><span class="audio-current">0:00</span> / <span class="audio-duration">0:00</span></div>
+        </div>
         <p class="caption">"Peak Light" &middot; recorded through Harmonic Range</p>
       </div>
     </div>
@@ -374,6 +452,51 @@
       });
     }, { threshold: 0.12 });
     els.forEach(function (el) { io.observe(el); });
+  })();
+
+  (function () {
+    var wrap = document.querySelector('.audio-player');
+    if (!wrap) return;
+    var audio = wrap.querySelector('audio');
+    var playBtn = wrap.querySelector('.audio-play');
+    var track = wrap.querySelector('.audio-track');
+    var progress = wrap.querySelector('.audio-progress');
+    var handle = wrap.querySelector('.audio-handle');
+    var currentEl = wrap.querySelector('.audio-current');
+    var durationEl = wrap.querySelector('.audio-duration');
+
+    function formatTime(sec) {
+      if (!isFinite(sec)) return '0:00';
+      var m = Math.floor(sec / 60);
+      var s = Math.floor(sec % 60);
+      return m + ':' + (s < 10 ? '0' : '') + s;
+    }
+    function setProgress(fraction) {
+      var pct = Math.max(0, Math.min(1, fraction)) * 100;
+      progress.style.width = pct + '%';
+      handle.style.left = pct + '%';
+    }
+
+    playBtn.addEventListener('click', function () {
+      if (audio.paused) { audio.play(); } else { audio.pause(); }
+    });
+    audio.addEventListener('play', function () { wrap.classList.add('is-playing'); playBtn.setAttribute('aria-label', 'Pause'); });
+    audio.addEventListener('pause', function () { wrap.classList.remove('is-playing'); playBtn.setAttribute('aria-label', 'Play'); });
+    audio.addEventListener('loadedmetadata', function () { durationEl.textContent = formatTime(audio.duration); });
+    audio.addEventListener('timeupdate', function () {
+      currentEl.textContent = formatTime(audio.currentTime);
+      if (audio.duration) setProgress(audio.currentTime / audio.duration);
+    });
+    audio.addEventListener('ended', function () { setProgress(0); currentEl.textContent = formatTime(0); });
+
+    function seekFromEvent(evt) {
+      var rect = track.getBoundingClientRect();
+      var fraction = (evt.clientX - rect.left) / rect.width;
+      fraction = Math.max(0, Math.min(1, fraction));
+      setProgress(fraction);
+      if (audio.duration) audio.currentTime = fraction * audio.duration;
+    }
+    track.addEventListener('click', seekFromEvent);
   })();
 </script>
 
