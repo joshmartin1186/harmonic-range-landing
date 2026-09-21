@@ -39,18 +39,8 @@
   /* A long, eased dissolve (not a straight linear ramp) so the transition
      reads as fog rather than a visible cutoff line. */
   .edge-fade-bottom {
-    mask-image: linear-gradient(to bottom,
-      black calc(100% - 260px),
-      rgba(0,0,0,0.82) calc(100% - 190px),
-      rgba(0,0,0,0.5) calc(100% - 120px),
-      rgba(0,0,0,0.18) calc(100% - 55px),
-      transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom,
-      black calc(100% - 260px),
-      rgba(0,0,0,0.82) calc(100% - 190px),
-      rgba(0,0,0,0.5) calc(100% - 120px),
-      rgba(0,0,0,0.18) calc(100% - 55px),
-      transparent 100%);
+    mask-image: linear-gradient(to bottom, black calc(100% - 46px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black calc(100% - 46px), transparent 100%);
   }
   .edge-fade-top {
     mask-image: linear-gradient(to bottom,
