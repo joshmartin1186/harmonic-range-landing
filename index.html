@@ -7,7 +7,7 @@
 <meta name="description" content="Sawatch Audio makes tools that sound like somewhere. Harmonic Range: warmth, terrain, and altitude in three knobs. $49, one time.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik+Distressed&family=Special+Elite&family=Archivo:wght@400;500;600;700;800&display=swap">
 
 <style>
   :root {
@@ -22,16 +22,80 @@
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
-    background: var(--parchment);
+    background-color: var(--parchment);
+    background-image: url("assets/nano-banana/paper-texture.png");
+    background-repeat: repeat;
     color: var(--ink);
     font-family: 'Archivo', -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
+    position: relative;
   }
   a { color: inherit; }
   .wrap { max-width: 900px; margin: 0 auto; padding-inline: 24px; }
 
+  /* Feather an image's top and/or bottom edge into the page's own grain,
+     so a seam dissolves instead of cutting hard between two pieces of art
+     (or art and plain parchment). */
+  /* A long, eased dissolve (not a straight linear ramp) so the transition
+     reads as fog rather than a visible cutoff line. */
+  .edge-fade-bottom {
+    mask-image: linear-gradient(to bottom,
+      black calc(100% - 260px),
+      rgba(0,0,0,0.82) calc(100% - 190px),
+      rgba(0,0,0,0.5) calc(100% - 120px),
+      rgba(0,0,0,0.18) calc(100% - 55px),
+      transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom,
+      black calc(100% - 260px),
+      rgba(0,0,0,0.82) calc(100% - 190px),
+      rgba(0,0,0,0.5) calc(100% - 120px),
+      rgba(0,0,0,0.18) calc(100% - 55px),
+      transparent 100%);
+  }
+  .edge-fade-top {
+    mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 55px,
+      rgba(0,0,0,0.5) 120px,
+      rgba(0,0,0,0.82) 190px,
+      black 260px);
+    -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 55px,
+      rgba(0,0,0,0.5) 120px,
+      rgba(0,0,0,0.82) 190px,
+      black 260px);
+  }
+  .edge-fade-both {
+    mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 55px,
+      rgba(0,0,0,0.5) 120px,
+      rgba(0,0,0,0.82) 190px,
+      black 260px,
+      black calc(100% - 260px),
+      rgba(0,0,0,0.82) calc(100% - 190px),
+      rgba(0,0,0,0.5) calc(100% - 120px),
+      rgba(0,0,0,0.18) calc(100% - 55px),
+      transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0,
+      rgba(0,0,0,0.18) 55px,
+      rgba(0,0,0,0.5) 120px,
+      rgba(0,0,0,0.82) 190px,
+      black 260px,
+      black calc(100% - 260px),
+      rgba(0,0,0,0.82) calc(100% - 190px),
+      rgba(0,0,0,0.5) calc(100% - 120px),
+      rgba(0,0,0,0.18) calc(100% - 55px),
+      transparent 100%);
+  }
+
+  /* Display type: the same weathered/ink-bled letterform family as the
+     printed headlines baked into the artwork, so real text reads as part
+     of the same printed sheet instead of clean web type laid over it. */
   h1, h2, .display {
-    font-family: 'Archivo Black', 'Archivo', sans-serif;
+    font-family: 'Rubik Distressed', 'Archivo', sans-serif;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.01em;
@@ -52,9 +116,23 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(248, 229, 202, 0.92);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
+    background-color: var(--parchment);
+  }
+  nav.site::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 4px;
+    background-image: url("assets/nano-banana/rule-line.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  .rule-divider {
+    height: 20px;
+    background-image: url("assets/nano-banana/rule-line.jpg");
+    background-size: auto 4px;
+    background-repeat: no-repeat;
+    background-position: center;
   }
   .nav-inner {
     max-width: 1100px;
@@ -66,7 +144,7 @@
   }
   .brand { display: flex; align-items: center; gap: 10px; }
   .brand img { height: 32px; width: 32px; display: block; }
-  .brand span { font-family: 'Archivo Black', sans-serif; font-size: 16px; }
+  .brand span { font-family: 'Rubik Distressed', sans-serif; font-size: 15px; }
   .nav-links { display: flex; align-items: center; gap: 28px; }
   .nav-links a.textlink {
     font-size: 12.5px;
@@ -99,13 +177,10 @@
   .btn-secondary { background: transparent; color: var(--ink); box-shadow: 3px 3px 0 rgba(27,32,54,0.28); }
   .btn-secondary:hover { box-shadow: 4px 5px 0 rgba(27,32,54,0.28); }
 
-  /* ---------- Hero (nano-banana image + real overlay button) ---------- */
-  .hero-frame {
-    position: relative;
-    width: 100%;
-    line-height: 0;
-  }
-  .hero-frame img { display: block; width: 100%; height: auto; }
+  /* ---------- Full-bleed nano-banana section art ---------- */
+  .art-frame { position: relative; width: 100%; line-height: 0; }
+  .art-frame img { display: block; width: 100%; height: auto; }
+
   .hero-btn {
     position: absolute;
     left: 76.27%;
@@ -115,32 +190,57 @@
     display: block;
   }
 
-  /* ---------- Generic text sections ---------- */
-  section { padding: 72px 24px; text-align: center; }
-  section + section { border-top: 1px solid var(--line); }
-  .section-title { font-size: clamp(22px, 3.2vw, 32px); margin: 0 0 18px; }
+  /* ---------- Generic text sections (sit directly under an art-frame) ---------- */
+  section { padding: 56px 24px 72px; text-align: center; }
+  .section-title { font-size: clamp(24px, 3.6vw, 34px); margin: 0 0 18px; }
   .section-body {
     max-width: 56ch;
     margin: 0 auto;
     color: var(--muted);
-    font-size: 15.5px;
-    line-height: 1.75;
+    font-family: 'Special Elite', 'Archivo', monospace;
+    font-size: 15px;
+    line-height: 1.9;
   }
 
   /* ---------- Gear / product card ---------- */
   .gear-card {
+    position: relative;
     max-width: 760px;
     margin: 40px auto 0;
-    background: rgba(255,255,255,0.25);
-    border: 2px solid var(--ink);
+    border-left: 2px solid var(--ink);
+    border-right: 2px solid var(--ink);
     border-radius: 10px;
     overflow: hidden;
     text-align: left;
   }
+  .gear-card::before,
+  .gear-card::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 5px;
+    background-image: url("assets/nano-banana/rule-line.jpg");
+    background-size: cover;
+    background-position: center;
+    z-index: 2;
+  }
+  .gear-card::before { top: 0; }
+  .gear-card::after { bottom: 0; }
   .gear-card img { display: block; width: 100%; height: auto; }
+  .gear-audio {
+    padding: 0 32px 24px;
+  }
+  .gear-audio .eyebrow { margin-bottom: 8px; }
+  .gear-audio audio { width: 100%; }
+  .gear-audio .caption {
+    font-family: 'Special Elite', 'Archivo', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    margin: 6px 0 0;
+  }
   .gear-card-body { padding: 28px 32px 32px; }
-  .gear-card-body h3 { font-family: 'Archivo Black', sans-serif; font-weight: 400; font-size: 22px; margin: 0 0 8px; text-transform: uppercase; }
-  .gear-card-body p { color: var(--muted); font-size: 14.5px; line-height: 1.6; margin: 0 0 20px; max-width: 46ch; }
+  .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; margin: 0 0 8px; text-transform: uppercase; }
+  .gear-card-body p { color: var(--muted); font-family: 'Special Elite', 'Archivo', monospace; font-size: 13.5px; line-height: 1.75; margin: 0 0 20px; max-width: 46ch; }
   .gear-price-row {
     display: flex;
     align-items: center;
@@ -150,23 +250,28 @@
     padding-top: 18px;
     border-top: 1px solid var(--line);
   }
-  .gear-price { font-family: 'Archivo Black', sans-serif; font-size: 26px; }
+  .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; }
   .gear-price span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-left: 6px; }
   .gear-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* ---------- Footer ---------- */
-  footer {
-    padding: 48px 24px 56px;
-    text-align: center;
+  /* ---------- Footer (art-frame with real content overlaid in its open sky) ---------- */
+  .footer-frame { position: relative; width: 100%; line-height: 0; }
+  .footer-frame img { display: block; width: 100%; height: auto; }
+  .footer-overlay {
+    position: absolute;
+    left: 50%;
+    top: 21%;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    text-align: center;
   }
-  footer img { width: 44px; height: 44px; }
-  footer .tagline { font-family: 'Archivo Black', sans-serif; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; }
-  footer .fine { font-size: 12.5px; color: var(--muted); }
-  footer a { text-decoration: underline; }
+  .footer-overlay img { width: 8%; min-width: 34px; max-width: 60px; height: auto; }
+  .footer-overlay .tagline { font-family: 'Rubik Distressed', sans-serif; font-size: clamp(12px, 1.6vw, 16px); text-transform: uppercase; letter-spacing: 0.04em; }
+  .footer-overlay .fine { font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); }
+  .footer-overlay a { text-decoration: underline; }
 
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -190,24 +295,30 @@
   </div>
 </nav>
 
-<div class="hero-frame">
-  <img src="assets/nano-banana/section-hero.jpg" alt="Sawatch Audio: a figure playing guitar overlooking western mountains at dusk">
+<div class="art-frame">
+  <img class="edge-fade-bottom" src="assets/nano-banana/section-hero.jpg" alt="Sawatch Audio: a figure playing guitar overlooking western mountains at dusk">
   <a class="hero-btn" href="#sound" aria-label="Explore the sound"></a>
 </div>
 
+<div class="art-frame">
+  <img class="edge-fade-both" src="assets/nano-banana/section-philosophy.jpg" alt="A small campfire with smoke drifting up into a starry sky">
+</div>
 <section id="philosophy">
   <div class="wrap reveal">
     <p class="eyebrow">Philosophy</p>
     <h2 class="section-title">Sound like somewhere.</h2>
     <p class="section-body">
       Sawatch Audio makes tools for players who want their gear to carry a
-      sense of place — the warmth of a room, the distance of a ridgeline,
-      the wear of years outdoors. No presets pretending to be a mood.
+      sense of place. The warmth of a room. The distance of a ridgeline.
+      The wear of years outdoors. No presets pretending to be a mood.
       Just controls that respond the way the outdoors do.
     </p>
   </div>
 </section>
 
+<div class="art-frame">
+  <img class="edge-fade-both" src="assets/nano-banana/section-sound.jpg" alt="A sound waveform forming the silhouette of a mountain range">
+</div>
 <section id="sound">
   <div class="wrap reveal">
     <p class="eyebrow">Sound</p>
@@ -237,15 +348,25 @@
           </div>
         </div>
       </div>
+      <div class="gear-audio">
+        <p class="eyebrow">Listen</p>
+        <audio controls preload="none" src="assets/audio/peak-light.mp3"></audio>
+        <p class="caption">"Peak Light" &middot; recorded through Harmonic Range</p>
+      </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <img src="assets/nano-banana/logo-mark.png" alt="Sawatch Audio">
-  <div class="tagline">Sawatch Audio · Sounds of the West</div>
-  <div class="fine">© 2026 · <a href="mailto:hello@sawatchaudio.com">hello@sawatchaudio.com</a></div>
-</footer>
+<div class="rule-divider"></div>
+
+<div class="footer-frame">
+  <img class="edge-fade-top" src="assets/nano-banana/section-footer.jpg" alt="A mountain horizon under a starry sky">
+  <div class="footer-overlay">
+    <img src="assets/nano-banana/logo-mark.png" alt="Sawatch Audio">
+    <div class="tagline">Sawatch Audio · Sounds of the West</div>
+    <div class="fine">© 2026 · <a href="mailto:hello@sawatchaudio.com">hello@sawatchaudio.com</a></div>
+  </div>
+</div>
 
 <script>
   (function () {

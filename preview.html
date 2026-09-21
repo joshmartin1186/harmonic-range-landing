@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sawatch Audio · Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;800&display=swap">
+<style>
+  /*
+    Test case: does a nano-banana section image seam invisibly into real
+    HTML on the same page? --parchment is sampled directly from the hero
+    JPEG's own background (median of several clean corners), not guessed.
+  */
+  :root {
+    --parchment: #F8E5CA;
+    --ink: #1b2036;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--parchment);
+    font-family: 'Archivo', sans-serif;
+  }
+
+  .hero-frame {
+    position: relative;
+    width: 100%;
+    line-height: 0; /* kill the few px of inline-image gap under the img */
+  }
+  .hero-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* Positioned as percentages of the image's own box, measured directly
+     off the source JPEG's pixel dimensions -- scales correctly at any
+     rendered width instead of drifting on resize. */
+  .hero-btn {
+    position: absolute;
+    left: 76.27%;
+    top: 26.69%;
+    width: 18.64%;
+    height: 7.81%;
+    display: block;
+    cursor: pointer;
+  }
+
+  .below {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    text-align: center;
+    color: var(--ink);
+  }
+  .below h2 { font-size: 22px; margin: 0 0 10px; }
+  .below p { color: #55503f; font-size: 15px; line-height: 1.6; }
+  .seam-marker {
+    border-top: 1px dashed rgba(27,32,54,0.25);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-frame">
+  <img src="assets/nano-banana/section-hero.jpg" alt="Sawatch Audio: a figure playing guitar overlooking western mountains at dusk">
+  <a class="hero-btn" href="#next-section" aria-label="Explore the sound"></a>
+</div>
+
+<hr class="seam-marker">
+
+<section id="next-section" class="below">
+  <h2>This band is real HTML, not image.</h2>
+  <p>
+    Its background is the same #F8E5CA sampled from the hero JPEG's own
+    parchment. The dashed line above marks exactly where the image ends
+    and live HTML begins -- if the seam is invisible without it, the
+    match worked. The button over "Explore the Sound" above is a real
+    &lt;a&gt; tag positioned by percentage over the baked-in artwork;
+    clicking it does a real anchor scroll down to this section.
+  </p>
+</section>
+
+</body>
+</html>
