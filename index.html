@@ -358,6 +358,29 @@
   .footer-overlay .fine { font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); margin-top: 2px; }
   .footer-overlay a { text-decoration: underline; }
 
+  /* ---------- Video embed ---------- */
+  .video-frame {
+    max-width: 760px;
+    margin: 40px auto 0;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 rgba(27,32,54,0.28);
+    overflow: hidden;
+  }
+  .video-frame .aspect {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+  }
+  .video-frame iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
@@ -412,6 +435,12 @@
       Every Sawatch tool trades a wall of presets for a small number of
       controls built to be pushed hard and lived with.
     </p>
+
+    <div class="video-frame">
+      <div class="aspect">
+        <iframe src="https://www.youtube.com/embed/8b3UQ8JxV6o" title="Harmonic Range tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 </section>
 
