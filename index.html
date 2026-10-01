@@ -491,10 +491,20 @@
     <div class="tagline">Sawatch Audio · Sounds of the West</div>
 
     <form class="newsletter-form" method="POST" action="https://harmonic-range-server.aiwest.workers.dev/newsletter/subscribe" style="margin: 20px 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
-      <input type="text" name="first_name" placeholder="First name (optional)"
-             style="padding: 10px 14px; font-size: 13px; font-family: inherit; border: 2px solid var(--ink); border-radius: 3px; min-width: 150px;">
       <input type="email" name="email" placeholder="you@example.com" required
              style="padding: 10px 14px; font-size: 13px; font-family: inherit; border: 2px solid var(--ink); border-radius: 3px; min-width: 220px;">
+      <!-- Honeypot: positioned off-screen (not display:none, which bots skip), skipped by
+           keyboard and screen readers. People never fill it; form-stuffing bots do, and the
+           server then drops the signup silently. Keep the name in sync with
+           server/src/routes/newsletter.ts. -->
+      <div aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+        <label>Leave this field empty <input type="text" name="website_url" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <!-- Cloudflare Turnstile. The data-sitekey below is the PUBLIC site key of the
+           "Sawatch Audio newsletter" widget (Cloudflare Dashboard > Turnstile); the matching
+           secret lives on the Worker as TURNSTILE_SECRET_KEY. The widget adds a hidden
+           `cf-turnstile-response` field to this form, which the Worker verifies server-side. -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFLbYEyxj8lkpIyG" data-theme="light" style="flex-basis: 100%; display: flex; justify-content: center;"></div>
       <button class="btn btn-primary" type="submit" style="padding: 9px 16px; font-size: 12px;">Join the list</button>
     </form>
 
@@ -566,5 +576,6 @@
   })();
 </script>
 
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </body>
 </html>
