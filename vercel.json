@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/download",
+      "destination": "https://harmonic-range-server.aiwest.workers.dev/download",
+      "permanent": false
+    },
+    {
+      "source": "/newsletter/confirm",
+      "destination": "https://harmonic-range-server.aiwest.workers.dev/newsletter/confirm",
+      "permanent": false
+    }
+  ]
+}
