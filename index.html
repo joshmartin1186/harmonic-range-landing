@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sawatch Audio · Harmonic Range</title>
-<meta name="description" content="Sawatch Audio makes tools that sound like somewhere. Harmonic Range: warmth, terrain, and altitude in three knobs. $49, one time.">
+<meta name="description" content="Sawatch Audio makes tools that sound like somewhere. Harmonic Range: warmth, terrain, and altitude in three knobs. $29 early-bird price for the first 10 customers, then $49, one time.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik+Distressed&family=Special+Elite&family=Archivo:wght@400;500;600;700;800&display=swap">
@@ -337,6 +337,8 @@
   }
   .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; }
   .gear-price span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-left: 6px; }
+  .gear-was { font-family: 'Archivo', sans-serif; font-size: 18px; color: var(--muted); font-weight: 600; margin-right: 4px; }
+  .gear-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
   .gear-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
   /* ---------- Footer (art-frame with real content overlaid in its open sky) ---------- */
@@ -455,12 +457,13 @@
         <h3>Harmonic Range</h3>
         <p>Tube warmth, granular texture, and a dense ambient wash, built for the space between an overdrive and a big reverb pedal. VST3 · AU · Standalone.</p>
         <div class="gear-price-row">
-          <div class="gear-price">$49<span>one time</span></div>
+          <div class="gear-price" id="gear-price"><s class="gear-was">$49</s> $29<span>early bird &middot; one time</span></div>
           <div class="gear-cta-row">
             <a class="btn btn-primary" href="https://harmonic-range-server.aiwest.workers.dev/checkout">Buy Now</a>
             <a class="btn btn-secondary" href="https://harmonic-range-server.aiwest.workers.dev/download">Free Trial</a>
           </div>
         </div>
+        <p class="gear-note" id="gear-note">Early-bird price for the first 10 customers, then $49. One time, yours to keep.</p>
       </div>
       <div class="gear-audio">
         <p class="eyebrow">Listen</p>
@@ -577,5 +580,29 @@
 </script>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+// Early-bird price, straight from the checkout server so the page can never
+// say $29 after the tenth license is gone. If the request fails the built-in
+// wording above stays (the checkout page always shows the real total).
+(function () {
+  fetch('https://harmonic-range-server.aiwest.workers.dev/price')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (p) {
+      var price = document.getElementById('gear-price');
+      var note = document.getElementById('gear-note');
+      if (!price || !note) return;
+      var list = '$' + Math.round(p.list_cents / 100);
+      if (p.early_bird) {
+        var left = p.early_bird.remaining, total = p.early_bird.total;
+        price.innerHTML = '<s class="gear-was">' + list + '</s> $' + Math.round(p.early_bird.price_cents / 100) + '<span>early bird &middot; one time</span>';
+        note.textContent = 'Early bird: ' + left + ' of ' + total + ' left at this price, then ' + list + '. One time, yours to keep.';
+      } else {
+        price.innerHTML = list + '<span>one time</span>';
+        note.textContent = 'One time, yours to keep. Free trial included.';
+      }
+    })
+    .catch(function () {});
+})();
+</script>
 </body>
 </html>
