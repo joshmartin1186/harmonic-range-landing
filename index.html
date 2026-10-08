@@ -201,21 +201,18 @@
 
   /* A transparent cutout (no paper plate of its own), so it sits directly on
      the page's paper instead of reading as a tinted rectangle. */
-  .campfire { margin: 0; padding: 20px 24px 0; text-align: center; line-height: 0; }
+  .campfire { margin: 0; padding: 44px 24px 0; text-align: center; line-height: 0; }
   .campfire img { display: block; margin: 0 auto; width: min(100%, 400px); height: auto; }
 
   .sound-wave { margin: 0; padding: 24px 24px 0; text-align: center; line-height: 0; }
   .sound-wave img { display: block; margin: 0 auto; width: min(100%, 1100px); height: auto; }
   @media (max-width: 600px) { .sound-wave { padding-inline: 6px; } }
 
-  .hero-btn {
-    position: absolute;
-    left: 76.27%;
-    top: 26.69%;
-    width: 18.64%;
-    height: 7.81%;
-    display: block;
-  }
+  /* Transparent cutout with the headline baked in: it sits directly on the
+     page's paper. Capped in width so it doesn't upscale past its source on
+     very wide screens, and above the fold, so it is not lazy-loaded. */
+  .hero { padding: 10px 12px 0; text-align: center; line-height: 0; }
+  .hero img { display: block; margin: 0 auto; width: min(100%, 1500px); height: auto; }
 
   /* ---------- Generic text sections (sit directly under an art-frame) ---------- */
   section { padding: 56px 24px 72px; text-align: center; }
@@ -414,9 +411,8 @@
   </div>
 </nav>
 
-<div class="art-frame zoom-crop">
-  <img class="edge-fade-bottom" src="assets/nano-banana/section-hero-v2.jpg" alt="Sawatch Audio: Sounds of the West — a hiker overlooking western mountains at dusk">
-  <a class="hero-btn" href="#sound" aria-label="Explore the sound"></a>
+<div class="hero">
+  <img src="assets/nano-banana/section-hero-v3.webp" width="1624" height="846" fetchpriority="high" alt="Sawatch Audio: Sounds of the West — a hiker overlooking western mountains at dusk">
 </div>
 
 <figure class="campfire">
