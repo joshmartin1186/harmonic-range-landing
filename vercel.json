@@ -20,6 +20,10 @@
     {
       "source": "/lo-fi-cabin",
       "destination": "/lo-fi-cabin.html"
+    },
+    {
+      "source": "/harmonic-range",
+      "destination": "/harmonic-range.html"
     }
   ]
 }

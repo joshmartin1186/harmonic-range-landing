@@ -273,22 +273,27 @@
   }
   .gear-card::before { top: 0; }
   .gear-card::after { bottom: 0; }
-  .gear-card img { display: block; width: calc(100% - 28px); height: auto; margin: 22px 14px 0; }
+  /* Both pedal images sit in the same fixed-ratio box (contain, never cropped or
+     stretched), so the two images are the same height and the titles start on one line. */
+  .gear-media { padding: 34px 32px 0; }
+  .gear-media img { display: block; width: 100%; height: auto; aspect-ratio: 1.85 / 1; object-fit: contain; object-position: center; }
   @media (max-width: 600px) {
     /* let the card use more of a phone's width so the baked-in knob labels stay readable */
     .gear-card { margin-inline: -14px; }
-    .gear-card img { width: calc(100% - 12px); margin: 16px 6px 0; }
+    .gear-media { padding: 22px 8px 0; }
   }
-  .gear-audio {
-    padding: 0 32px 24px;
-  }
-  .gear-audio .eyebrow { margin-bottom: 10px; }
+  /* Bottom block: a slot for the sample recording (Listen / Inside), then a quiet Details link. */
+  .gear-audio { margin: 0 40px; padding: 30px 0 34px; border-top: 1px solid var(--line); }
+  .gear-audio .eyebrow { margin-bottom: 14px; }
   .gear-audio .caption {
     font-family: 'Special Elite', 'Archivo', monospace;
     font-size: 12px;
+    line-height: 1.6;
     color: var(--muted);
-    margin: 8px 0 0;
+    margin: 12px 0 0;
   }
+  .gear-audio .caption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .gear-audio .gear-details { margin-top: 22px; }
 
   /* Custom transport -- native <audio controls> can't be styled
      consistently across browsers, so this drives a real <audio> element
@@ -357,31 +362,56 @@
     min-width: 84px;
     text-align: right;
   }
-  .gear-card-body { padding: 28px 32px 32px; }
-  .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; margin: 0 0 8px; text-transform: uppercase; }
-  .gear-card-body p { color: var(--muted); font-family: 'Special Elite', 'Archivo', monospace; font-size: 13.5px; line-height: 1.75; margin: 0 0 20px; max-width: 46ch; }
+  .gear-card-body { padding: 38px 40px 0; display: flex; flex-direction: column; flex: 1; }
+  .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0 0 16px; text-transform: uppercase; }
+  .gear-card-body p.gear-desc { color: var(--muted); font-family: 'Special Elite', 'Archivo', monospace; font-size: 13.5px; line-height: 1.85; margin: 0 0 30px; max-width: 46ch; }
   .gear-price-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 18px;
-    padding-top: 18px;
+    flex-direction: column;
+    margin-top: auto;
+    padding-top: 26px;
     border-top: 1px solid var(--line);
   }
-  .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; }
-  .gear-price span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-left: 6px; }
+  .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; line-height: 1.2; margin: 0 0 20px; }
+  .gear-price[hidden] { display: none; }
+  .gear-price span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-left: 6px; white-space: nowrap; }
   .gear-was { font-family: 'Archivo', sans-serif; font-size: 18px; color: var(--muted); font-weight: 600; margin-right: 4px; }
-  .gear-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
-  .gear-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .gear-note { margin: 26px 0 32px; font-size: 14px; line-height: 1.65; color: var(--muted); max-width: 46ch; }
+  .gear-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
   /* Two products side by side. The section is wider than the page's 900px column so each card keeps its knob labels readable. */
   #gear .wrap { max-width: 1240px; }
-  .gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin: 40px auto 0; align-items: stretch; }
+  .gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 0; margin: 48px auto 0; align-items: stretch; }
   .gear-grid .gear-card { max-width: none; margin: 0; display: flex; flex-direction: column; }
-  .gear-grid .gear-card-body { flex: 1; }
-  .gear-grid .gear-audio a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-  @media (max-width: 899px) { .gear-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 600px) { .gear-grid .gear-card { margin-inline: -14px; } }
+  @media (max-width: 899px) { .gear-grid { grid-template-columns: 1fr; row-gap: 32px; } }
+  @media (max-width: 600px) {
+    .gear-grid .gear-card { margin-inline: -14px; }
+    .gear-card-body { padding: 30px 26px 0; }
+    .gear-audio { margin: 0 26px; padding: 26px 0 28px; }
+    .gear-cta-row { gap: 12px; }
+    .gear-cta-row .btn { padding: 13px 18px; }
+  }
+  /* Side by side: every card shares one set of rows (image, title, description, price,
+     buttons, note, listen slot, details), so each of those lines up across the two cards
+     whatever the text length. Without subgrid support the flex layout above still stacks
+     them, with the price row pinned to the bottom of the body. */
+  @media (min-width: 900px) {
+    @supports (grid-template-rows: subgrid) {
+      .gear-grid .gear-card { display: grid; grid-template-rows: subgrid; grid-row: 1 / span 8; }
+      .gear-grid .gear-card:nth-child(1) { grid-column: 1; }
+      .gear-grid .gear-card:nth-child(2) { grid-column: 2; }
+      .gear-grid .gear-card-body { display: grid; grid-template-rows: subgrid; grid-row: 2 / span 5; }
+      .gear-grid .gear-price-row { display: grid; grid-template-rows: subgrid; margin-top: 0; }
+      .gear-grid .gear-price { grid-row: 1; }
+      .gear-grid .gear-cta-row { grid-row: 2; align-self: start; }
+      .gear-grid .gear-audio { display: grid; grid-template-rows: subgrid; grid-row: 7 / span 2; }
+      .gear-grid .gear-audio .gear-slot { grid-row: 1; }
+      .gear-grid .gear-audio .gear-details { grid-row: 2; align-self: end; }
+      .gear-grid .gear-card-body > h3 { grid-row: 1; }
+      .gear-grid .gear-card-body > .gear-desc { grid-row: 2; }
+      .gear-grid .gear-card-body > .gear-price-row { grid-row: 3 / span 2; }
+      .gear-grid .gear-card-body > .gear-note { grid-row: 5; }
+    }
+  }
 
   /* ---------- Footer: the art, then the content on the paper beneath it ---------- */
   .footer-frame { position: relative; width: 100%; line-height: 0; }
@@ -400,28 +430,7 @@
   .footer-overlay .fine { line-height: 1.5; font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); margin-top: 2px; }
   .footer-overlay a { text-decoration: underline; }
 
-  /* ---------- Video embed ---------- */
-  .video-frame {
-    max-width: 760px;
-    margin: 40px auto 0;
-    border: 2px solid var(--ink);
-    border-radius: 10px;
-    box-shadow: 5px 5px 0 rgba(27,32,54,0.28);
-    overflow: hidden;
-  }
-  .video-frame .aspect {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-  }
-  .video-frame iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-  }
+  .sound-cta { margin: 36px 0 0; }
 
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -440,6 +449,7 @@
       <a class="textlink" href="#philosophy">Philosophy</a>
       <a class="textlink" href="#sound">Sound</a>
       <a class="textlink" href="#gear">Gear</a>
+      <a class="textlink" href="/harmonic-range">Harmonic Range</a>
       <a class="textlink" href="/lo-fi-cabin">Lo-Fi Cabin</a>
       <a class="btn btn-primary" href="#gear" style="padding:9px 16px; font-size:11.5px; box-shadow:2px 2px 0 var(--ink);">Shop</a>
     </div>
@@ -478,11 +488,7 @@
       controls built to be pushed hard and lived with.
     </p>
 
-    <div class="video-frame">
-      <div class="aspect">
-        <iframe src="https://www.youtube.com/embed/8b3UQ8JxV6o" title="Harmonic Range tutorial" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-      </div>
-    </div>
+    <p class="sound-cta"><a class="btn btn-primary" href="/harmonic-range">Watch Harmonic Range in action &rarr;</a></p>
   </div>
 </section>
 
@@ -493,10 +499,12 @@
 
     <div class="gear-grid">
     <div class="gear-card">
-      <img src="assets/nano-banana/gear-harmonic-range-v2.webp" width="1653" height="842" loading="lazy" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a mountain-engraved faceplate">
+      <div class="gear-media">
+        <img src="assets/nano-banana/gear-harmonic-range-v2.webp" width="1653" height="842" loading="lazy" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a mountain-engraved faceplate">
+      </div>
       <div class="gear-card-body">
         <h3>Harmonic Range</h3>
-        <p>Tube warmth, granular texture, and a dense ambient wash, built for the space between an overdrive and a big reverb pedal. VST3 · AU · Standalone.</p>
+        <p class="gear-desc">Tube warmth, granular texture, and a dense ambient wash, built for the space between an overdrive and a big reverb pedal. VST3 · AU · Standalone.</p>
         <div class="gear-price-row">
           <div class="gear-price" id="gear-price"><s class="gear-was">$49</s> $29<span>early bird &middot; one time</span></div>
           <div class="gear-cta-row">
@@ -507,6 +515,7 @@
         <p class="gear-note" id="gear-note">Early-bird price for the first 10 customers, then $49. One time, yours to keep.</p>
       </div>
       <div class="gear-audio">
+        <div class="gear-slot">
         <p class="eyebrow">Listen</p>
         <div class="audio-player">
           <audio preload="none" src="assets/audio/peak-light.mp3"></audio>
@@ -521,18 +530,22 @@
           <div class="audio-time"><span class="audio-current">0:00</span> / <span class="audio-duration">0:00</span></div>
         </div>
         <p class="caption">"Peak Light" &middot; recorded through Harmonic Range</p>
+        </div>
+        <p class="caption gear-details"><a href="/harmonic-range">Details &rarr;</a></p>
       </div>
     </div>
 
     <div class="gear-card">
-      <img src="assets/nano-banana/gear-lo-fi-cabin-card.webp"
-           srcset="assets/nano-banana/gear-lo-fi-cabin-card-750.webp 750w, assets/nano-banana/gear-lo-fi-cabin-card.webp 1500w"
-           sizes="(min-width: 900px) 580px, calc(100vw - 24px)"
-           width="1500" height="838" loading="lazy"
-           alt="Lo-Fi Cabin plugin interface: a riso-printed storm sky over mountains with a small cabin and one lit window, and Cabin, Storm, Hearth and Mix knobs">
+      <div class="gear-media">
+        <img src="assets/nano-banana/gear-lo-fi-cabin-card.webp"
+             srcset="assets/nano-banana/gear-lo-fi-cabin-card-750.webp 750w, assets/nano-banana/gear-lo-fi-cabin-card.webp 1500w"
+             sizes="(min-width: 900px) 520px, calc(100vw - 24px)"
+             width="1500" height="838" loading="lazy"
+             alt="Lo-Fi Cabin plugin interface: a riso-printed storm sky over mountains with a small cabin and one lit window, and Cabin, Storm, Hearth and Mix knobs">
+      </div>
       <div class="gear-card-body">
         <h3>Lo-Fi Cabin</h3>
-        <p>A warm, intimate tape and small-room sound for a close-miked voice and a live guitar. One Cabin fader, Storm for tape space, Hearth for tape age, and a footswitch of reversed swells. VST3 &middot; AU &middot; Standalone.</p>
+        <p class="gear-desc">A warm, intimate tape and small-room sound for a close-miked voice and a live guitar. One Cabin fader, Storm for tape space, Hearth for tape age, and a footswitch of reversed swells. VST3 &middot; AU &middot; Standalone.</p>
         <div class="gear-price-row">
           <div class="gear-price" id="lofi-price" hidden></div>
           <div class="gear-cta-row">
@@ -543,8 +556,11 @@
         <p class="gear-note" id="lofi-note">Six days free, no key needed. One time, yours to keep.</p>
       </div>
       <div class="gear-audio">
-        <p class="eyebrow">Inside</p>
-        <p class="caption"><a href="/lo-fi-cabin">What each control does &rarr;</a></p>
+        <div class="gear-slot">
+          <p class="eyebrow">Inside</p>
+          <p class="caption"><a href="/lo-fi-cabin#controls">What each control does &rarr;</a></p>
+        </div>
+        <p class="caption gear-details"><a href="/lo-fi-cabin">Details &rarr;</a></p>
       </div>
     </div>
     </div>
