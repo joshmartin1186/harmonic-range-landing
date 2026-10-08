@@ -9,6 +9,17 @@
       "source": "/newsletter/confirm",
       "destination": "https://harmonic-range-server.aiwest.workers.dev/newsletter/confirm",
       "permanent": false
+    },
+    {
+      "source": "/lo-fi-cabin/download",
+      "destination": "https://lofi-cabin-server.aiwest.workers.dev/download",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/lo-fi-cabin",
+      "destination": "/lo-fi-cabin.html"
     }
   ]
 }

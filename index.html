@@ -374,6 +374,14 @@
   .gear-was { font-family: 'Archivo', sans-serif; font-size: 18px; color: var(--muted); font-weight: 600; margin-right: 4px; }
   .gear-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
   .gear-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  /* Two products side by side. The section is wider than the page's 900px column so each card keeps its knob labels readable. */
+  #gear .wrap { max-width: 1240px; }
+  .gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin: 40px auto 0; align-items: stretch; }
+  .gear-grid .gear-card { max-width: none; margin: 0; display: flex; flex-direction: column; }
+  .gear-grid .gear-card-body { flex: 1; }
+  .gear-grid .gear-audio a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  @media (max-width: 899px) { .gear-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 600px) { .gear-grid .gear-card { margin-inline: -14px; } }
 
   /* ---------- Footer: the art, then the content on the paper beneath it ---------- */
   .footer-frame { position: relative; width: 100%; line-height: 0; }
@@ -432,6 +440,7 @@
       <a class="textlink" href="#philosophy">Philosophy</a>
       <a class="textlink" href="#sound">Sound</a>
       <a class="textlink" href="#gear">Gear</a>
+      <a class="textlink" href="/lo-fi-cabin">Lo-Fi Cabin</a>
       <a class="btn btn-primary" href="#gear" style="padding:9px 16px; font-size:11.5px; box-shadow:2px 2px 0 var(--ink);">Shop</a>
     </div>
   </div>
@@ -480,8 +489,9 @@
 <section id="gear">
   <div class="wrap reveal">
     <p class="eyebrow">Gear</p>
-    <h2 class="section-title">The current release.</h2>
+    <h2 class="section-title">Current releases.</h2>
 
+    <div class="gear-grid">
     <div class="gear-card">
       <img src="assets/nano-banana/gear-harmonic-range-v2.webp" width="1653" height="842" loading="lazy" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a mountain-engraved faceplate">
       <div class="gear-card-body">
@@ -512,6 +522,31 @@
         </div>
         <p class="caption">"Peak Light" &middot; recorded through Harmonic Range</p>
       </div>
+    </div>
+
+    <div class="gear-card">
+      <img src="assets/nano-banana/gear-lo-fi-cabin-card.webp"
+           srcset="assets/nano-banana/gear-lo-fi-cabin-card-750.webp 750w, assets/nano-banana/gear-lo-fi-cabin-card.webp 1500w"
+           sizes="(min-width: 900px) 580px, calc(100vw - 24px)"
+           width="1500" height="838" loading="lazy"
+           alt="Lo-Fi Cabin plugin interface: a riso-printed storm sky over mountains with a small cabin and one lit window, and Cabin, Storm, Hearth and Mix knobs">
+      <div class="gear-card-body">
+        <h3>Lo-Fi Cabin</h3>
+        <p>A warm, intimate tape and small-room sound for a close-miked voice and a live guitar. One Cabin fader, Storm for tape space, Hearth for tape age, and a footswitch of reversed swells. VST3 &middot; AU &middot; Standalone.</p>
+        <div class="gear-price-row">
+          <div class="gear-price" id="lofi-price" hidden></div>
+          <div class="gear-cta-row">
+            <a class="btn btn-primary" href="https://lofi-cabin-server.aiwest.workers.dev/checkout">Buy Now</a>
+            <a class="btn btn-secondary" href="/lo-fi-cabin/download">Free Trial</a>
+          </div>
+        </div>
+        <p class="gear-note" id="lofi-note">Six days free, no key needed. One time, yours to keep.</p>
+      </div>
+      <div class="gear-audio">
+        <p class="eyebrow">Inside</p>
+        <p class="caption"><a href="/lo-fi-cabin">What each control does &rarr;</a></p>
+      </div>
+    </div>
     </div>
   </div>
 </section>
@@ -633,6 +668,27 @@
         price.innerHTML = list + '<span>one time</span>';
         note.textContent = 'One time, yours to keep. Free trial included.';
       }
+    })
+    .catch(function () {});
+})();
+
+// Lo-Fi Cabin's price, straight from its own checkout server. Nothing is hard-coded: if the request fails the price line stays hidden.
+(function () {
+  fetch('https://lofi-cabin-server.aiwest.workers.dev/price')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (p) {
+      var price = document.getElementById('lofi-price');
+      var note = document.getElementById('lofi-note');
+      if (!price || !note || !p.list_cents) return;
+      var list = '$' + Math.round(p.list_cents / 100);
+      if (p.early_bird && p.early_bird.price_cents != null && p.early_bird.remaining > 0) {
+        price.innerHTML = '<s class="gear-was">' + list + '</s> $' + Math.round(p.early_bird.price_cents / 100) + '<span>early bird &middot; one time</span>';
+        note.textContent = 'Early bird: ' + p.early_bird.remaining + ' of ' + p.early_bird.total + ' left at this price, then ' + list + '. Six days free, no key needed.';
+      } else {
+        price.innerHTML = list + '<span>one time</span>';
+        note.textContent = 'Six days free, no key needed. One time, yours to keep.';
+      }
+      price.hidden = false;
     })
     .catch(function () {});
 })();

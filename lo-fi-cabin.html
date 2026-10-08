@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sawatch Audio · Lo-Fi Cabin</title>
+<meta name="description" content="Lo-Fi Cabin by Sawatch Audio: a warm, close, tape-and-small-wooden-room sound for a voice and a live guitar. VST3, Audio Unit and Standalone for Mac, with a six-day free trial.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Rubik+Distressed&family=Special+Elite&family=Archivo:wght@400;500;600;700;800&display=swap">
+
+<style>
+  /* Same palette, type and components as the home page (index.html). This page
+     is a section of the one Sawatch site, so it carries the same CSS. Asset
+     paths are root-absolute because the page is served at /lo-fi-cabin. */
+  :root {
+    --parchment: #F4F1EB;
+    --ink: #1b2036;
+    --orange: #F56531;
+    --orange-bright: #FB7F3A;
+    --orange-deep: #BE3A0A;
+    --cobalt: #2E5288;
+    --muted: #5b5340;
+    --line: rgba(27,32,54,0.14);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background-color: var(--parchment);
+    background-image: url("/assets/nano-banana/paper-texture-v2.jpg");
+    background-repeat: repeat;
+    color: var(--ink);
+    font-family: 'Archivo', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 900px; margin: 0 auto; padding-inline: 24px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+  h1, h2, .display {
+    font-family: 'Anton', 'Archivo', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+  .eyebrow {
+    font-family: 'Archivo', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--orange-deep);
+    margin: 0 0 12px;
+  }
+
+  /* ---------- Nav ---------- */
+  nav.site { position: sticky; top: 0; z-index: 100; background-color: var(--parchment); }
+  nav.site::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -2px;
+    height: 4px;
+    background-image: url("/assets/nano-banana/rule-line-tight.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+  .rule-divider {
+    height: 20px;
+    background-image: url("/assets/nano-banana/rule-line.jpg");
+    background-size: auto 4px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand img { height: 30px; width: 30px; display: block; }
+  .brand span { font-family: 'Rubik Distressed', sans-serif; font-size: 15px; }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a.textlink {
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  @media (max-width: 620px) { .nav-links a.textlink { display: none; } }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 24px;
+    border-radius: 4px;
+    font-weight: 800;
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--orange); color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .btn-primary:hover { background: var(--orange-bright); box-shadow: 4px 5px 0 var(--ink); }
+  .btn-secondary { background: transparent; color: var(--ink); box-shadow: 3px 3px 0 rgba(27,32,54,0.28); }
+  .btn-secondary:hover { background: var(--cobalt); color: var(--parchment); box-shadow: 4px 5px 0 rgba(27,32,54,0.28); }
+  .btn:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; }
+
+  /* ---------- Hero: the approved faceplate, framed like the home page's gear card ---------- */
+  .pedal { max-width: 1000px; margin: 0 auto; padding: 28px 24px 0; }
+  .pedal-frame {
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 rgba(27,32,54,0.28);
+    overflow: hidden;
+    line-height: 0;
+  }
+  .pedal-frame img { display: block; width: 100%; height: auto; }
+  @media (max-width: 600px) { .pedal { padding-inline: 12px; } }
+
+  .intro { padding: 44px 24px 8px; text-align: center; }
+  .lead {
+    max-width: 30ch;
+    margin: 0 auto 14px;
+    font-family: 'Anton', 'Archivo', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: clamp(26px, 4.4vw, 40px);
+    line-height: 1.15;
+  }
+  .intro-body {
+    max-width: 56ch;
+    margin: 0 auto 26px;
+    color: var(--muted);
+    font-family: 'Special Elite', 'Archivo', monospace;
+    font-size: 15px;
+    line-height: 1.9;
+  }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .price-line {
+    margin: 18px 0 0;
+    font-family: 'Rubik Distressed', sans-serif;
+    font-size: 26px;
+    text-transform: uppercase;
+  }
+  .price-line span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; margin-left: 6px; }
+  .price-line s { font-family: 'Archivo', sans-serif; font-size: 17px; color: var(--muted); font-weight: 600; margin-right: 4px; }
+  .price-line[hidden] { display: none; }
+  .trial-note { margin: 12px auto 0; max-width: 46ch; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+  /* ---------- Text sections ---------- */
+  section { padding: 56px 24px 72px; text-align: center; }
+  .section-title { font-size: clamp(24px, 3.6vw, 34px); margin: 0 0 18px; }
+  .section-body {
+    max-width: 56ch;
+    margin: 0 auto;
+    color: var(--muted);
+    font-family: 'Special Elite', 'Archivo', monospace;
+    font-size: 15px;
+    line-height: 1.9;
+  }
+
+  /* ---------- Controls ---------- */
+  .controls {
+    list-style: none;
+    margin: 40px auto 0;
+    padding: 0;
+    max-width: 820px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0 40px;
+    text-align: left;
+  }
+  .controls li { padding: 18px 0 20px; border-top: 2px solid var(--ink); }
+  .controls h3 {
+    font-family: 'Rubik Distressed', sans-serif;
+    font-weight: 400;
+    font-size: 22px;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+  .controls h3 small {
+    font-family: 'Archivo', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    color: var(--orange-deep);
+    margin-left: 8px;
+  }
+  .controls p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--ink); max-width: 44ch; }
+
+  /* ---------- Buy card ---------- */
+  .buy-card {
+    max-width: 760px;
+    margin: 36px auto 0;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0 rgba(27,32,54,0.28);
+    padding: 30px 32px 28px;
+    text-align: left;
+  }
+  .buy-card .steps { margin: 0 0 22px; padding: 0; list-style: none; }
+  .buy-card .steps li { font-size: 15px; line-height: 1.65; padding: 6px 0; }
+  .buy-card .steps b { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 17px; text-transform: uppercase; margin-right: 6px; }
+  .buy-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .buy-row .price-line { margin: 0; }
+  .facts {
+    margin: 22px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 6px 18px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  .facts dt { font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; font-size: 12px; padding-top: 2px; }
+  .facts dd { margin: 0; color: var(--muted); }
+  .facts a { color: var(--ink); }
+  @media (max-width: 600px) {
+    .buy-card { padding: 24px 20px 22px; }
+    .buy-row .cta-row { width: 100%; }
+    .buy-row .btn { flex: 1 1 100%; }
+    .facts { grid-template-columns: 1fr; gap: 0; }
+    .facts dd { margin-bottom: 10px; }
+  }
+  .back-link { margin: 28px 0 0; font-size: 13px; color: var(--muted); }
+
+  /* ---------- Footer ---------- */
+  .footer-frame { position: relative; width: 100%; line-height: 0; }
+  .footer-art { margin: 0; padding: 36px 12px 0; text-align: center; }
+  .footer-art img { display: block; margin: 0 auto; width: min(100%, 1500px); height: auto; }
+  .footer-overlay {
+    padding: 44px 24px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    text-align: center;
+  }
+  .footer-overlay img { width: 8%; min-width: 30px; max-width: 52px; height: auto; }
+  .footer-overlay .tagline { font-family: 'Rubik Distressed', sans-serif; font-size: clamp(12px, 1.6vw, 16px); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.6; }
+  .footer-overlay .fine { line-height: 1.5; font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); margin-top: 2px; }
+  .footer-overlay a { text-decoration: underline; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+</head>
+<body>
+
+<nav class="site">
+  <div class="nav-inner">
+    <a class="brand" href="/">
+      <img src="/assets/nano-banana/logo-mark-v3.webp" width="30" height="30" alt="">
+      <span>Sawatch Audio</span>
+    </a>
+    <div class="nav-links">
+      <a class="textlink" href="/">Home</a>
+      <a class="textlink" href="#controls">Controls</a>
+      <a class="btn btn-primary" href="#buy" style="padding:9px 16px; font-size:11.5px; box-shadow:2px 2px 0 var(--ink);">Buy</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <h1 class="sr-only">Lo-Fi Cabin</h1>
+
+  <div class="pedal">
+    <div class="pedal-frame">
+      <img src="/assets/nano-banana/gear-lo-fi-cabin-1000.webp"
+           srcset="/assets/nano-banana/gear-lo-fi-cabin-1000.webp 1000w, /assets/nano-banana/gear-lo-fi-cabin.webp 2000w"
+           sizes="(min-width: 1024px) 952px, calc(100vw - 24px)"
+           width="2000" height="1116" fetchpriority="high"
+           alt="Lo-Fi Cabin faceplate: a riso-printed storm sky over mountains with a small cabin and one lit window, four orange knobs labeled Cabin, Storm, Hearth and Mix, and Bypass and EQ buttons at the sides">
+    </div>
+  </div>
+
+  <div class="intro">
+    <p class="lead">Fills the space with sweet, forgiving sound.</p>
+    <p class="intro-body">
+      Lo-Fi Cabin is an intimate, warm sound for a close-miked voice and a live
+      guitar: tape, and a small wooden room. It was made for a voice recorded on a
+      microphone that is too honest. For Mac: VST3, Audio Unit and Standalone.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://lofi-cabin-server.aiwest.workers.dev/checkout">Buy Lo-Fi Cabin</a>
+      <a class="btn btn-secondary" href="/lo-fi-cabin/download">Download free trial</a>
+    </div>
+    <p class="price-line" id="price-line" hidden></p>
+    <p class="trial-note">Six days free, no key needed. Download it, try it, and buy from inside the plugin if you want it.</p>
+  </div>
+
+  <section id="controls">
+    <div class="wrap reveal">
+      <p class="eyebrow">The pedal</p>
+      <h2 class="section-title">What each control does.</h2>
+      <p class="section-body">
+        Not a wall of presets. A few controls, each one a whole idea, meant to be
+        pushed and lived with.
+      </p>
+
+      <ul class="controls">
+        <li>
+          <h3>Cabin</h3>
+          <p>One fader for the warm, intimate, close sound of a small room. Everything moves together.</p>
+        </li>
+        <li>
+          <h3>Storm <small>tape space</small></h3>
+          <p>A tape echo that blooms in the gaps between phrases, a space-echo head pattern, a sleepy half-speed double, and a cassette-style stereo swim.</p>
+        </li>
+        <li>
+          <h3>Hearth <small>tape age</small></h3>
+          <p>How worn the tape is: wow, saturation, and an echo that loses a generation with each repeat.</p>
+        </li>
+        <li>
+          <h3>Mix</h3>
+          <p>How much of the processed sound is blended with your dry signal.</p>
+        </li>
+        <li>
+          <h3>Bypass</h3>
+          <p>Takes the effect out of the signal path, so you can hear what you started with.</p>
+        </li>
+        <li>
+          <h3>EQ <small>7 bands</small></h3>
+          <p>Seven bands to tune the tone by hand, after the plugin has done its work.</p>
+        </li>
+        <li>
+          <h3>Surge <small>footswitch</small></h3>
+          <p>Your own phrases come back reversed, as swells that pan across the stereo field and ratchet up while it is on.</p>
+        </li>
+        <li>
+          <h3>Tap</h3>
+          <p>Tap a tempo and every echo follows the beat, or follow the host's tempo instead.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="rule-divider"></div>
+
+  <section id="buy">
+    <div class="wrap reveal">
+      <p class="eyebrow">Try it, then buy it</p>
+      <h2 class="section-title">Six days, no key.</h2>
+
+      <div class="buy-card">
+        <ol class="steps">
+          <li><b>1.</b> Download Lo-Fi Cabin and install it. No key is needed to start.</li>
+          <li><b>2.</b> Use it for six days in your own sessions.</li>
+          <li><b>3.</b> If you want to keep it, buy from inside the plugin, and it unlocks itself.</li>
+        </ol>
+        <div class="buy-row">
+          <p class="price-line" id="buy-price-line" hidden></p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="https://lofi-cabin-server.aiwest.workers.dev/checkout">Buy Lo-Fi Cabin</a>
+            <a class="btn btn-secondary" href="/lo-fi-cabin/download">Download free trial</a>
+          </div>
+        </div>
+        <dl class="facts">
+          <dt>Formats</dt><dd>VST3, Audio Unit, Standalone</dd>
+          <dt>Works on</dt><dd>Mac</dd>
+          <dt>License</dt><dd>One license covers 2 machines. Deactivate an old one to free a seat.</dd>
+          <dt>Support</dt><dd><a href="mailto:hello@sawatchaudio.com">hello@sawatchaudio.com</a></dd>
+        </dl>
+      </div>
+
+      <p class="back-link"><a href="/">Back to Sawatch Audio</a></p>
+    </div>
+  </section>
+</main>
+
+<div class="rule-divider"></div>
+
+<div class="footer-frame">
+  <figure class="footer-art">
+    <img src="/assets/nano-banana/section-footer-v3.webp" width="1645" height="589" alt="A mountain valley under a dusk sky of layered orange and blue bands" loading="lazy">
+  </figure>
+  <div class="footer-overlay">
+    <img src="/assets/nano-banana/logo-mark-v3.webp" width="256" height="256" alt="Sawatch Audio">
+    <div class="tagline">Sawatch Audio · Sounds of the West</div>
+
+    <form class="newsletter-form" method="POST" action="https://harmonic-range-server.aiwest.workers.dev/newsletter/subscribe" style="margin: 20px 0; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+      <input type="email" name="email" placeholder="you@example.com" required
+             style="padding: 10px 14px; font-size: 13px; font-family: inherit; border: 2px solid var(--ink); border-radius: 3px; min-width: 220px;">
+      <!-- Honeypot: positioned off-screen (not display:none, which bots skip), skipped by
+           keyboard and screen readers. People never fill it; form-stuffing bots do, and the
+           server then drops the signup silently. Keep the name in sync with
+           server/src/routes/newsletter.ts. -->
+      <div aria-hidden="true" style="position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden;">
+        <label>Leave this field empty <input type="text" name="website_url" tabindex="-1" autocomplete="off"></label>
+      </div>
+      <!-- Cloudflare Turnstile. The data-sitekey below is the PUBLIC site key of the
+           "Sawatch Audio newsletter" widget (Cloudflare Dashboard > Turnstile); the matching
+           secret lives on the Worker as TURNSTILE_SECRET_KEY. The widget adds a hidden
+           `cf-turnstile-response` field to this form, which the Worker verifies server-side. -->
+      <div class="cf-turnstile" data-sitekey="0x4AAAAAAFLbYEyxj8lkpIyG" data-theme="light" style="flex-basis: 100%; display: flex; justify-content: center;"></div>
+      <button class="btn btn-primary" type="submit" style="padding: 9px 16px; font-size: 12px;">Join the list</button>
+    </form>
+
+    <div class="fine">© 2026 · <a href="mailto:hello@sawatchaudio.com">hello@sawatchaudio.com</a></div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+// The price is read from Lo-Fi Cabin's own Worker when the page loads, so the
+// page never states a number the checkout will not charge. No amount is written
+// anywhere in this file. If the request fails (or the Worker is not up), the
+// price line stays hidden and the Buy button still works: checkout always shows
+// the real total.
+(function () {
+  function money(cents, currency) {
+    try {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: (currency || 'usd').toUpperCase(),
+        minimumFractionDigits: 0, maximumFractionDigits: 2
+      }).format(cents / 100);
+    } catch (e) { return '$' + (cents / 100); }
+  }
+  function isCents(n) { return typeof n === 'number' && isFinite(n) && n > 0; }
+
+  fetch('https://lofi-cabin-server.aiwest.workers.dev/price')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (p) {
+      var list = isCents(p.list_cents) ? p.list_cents : (isCents(p.price_cents) ? p.price_cents : null);
+      var html = '';
+      if (p.early_bird && isCents(p.early_bird.price_cents)) {
+        html = (list ? '<s>' + money(list, p.currency) + '</s> ' : '') + money(p.early_bird.price_cents, p.currency) +
+          '<span>early bird' +
+          (typeof p.early_bird.remaining === 'number' && typeof p.early_bird.total === 'number'
+            ? ' &middot; ' + p.early_bird.remaining + ' of ' + p.early_bird.total + ' left'
+            : '') + '</span>';
+      } else if (list) {
+        html = money(list, p.currency);
+      }
+      if (!html) return;
+      ['price-line', 'buy-price-line'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.innerHTML = html;
+        el.hidden = false;
+      });
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
