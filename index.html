@@ -204,6 +204,10 @@
   .campfire { margin: 0; padding: 20px 24px 0; text-align: center; line-height: 0; }
   .campfire img { display: block; margin: 0 auto; width: min(100%, 400px); height: auto; }
 
+  .sound-wave { margin: 0; padding: 24px 24px 0; text-align: center; line-height: 0; }
+  .sound-wave img { display: block; margin: 0 auto; width: min(100%, 1100px); height: auto; }
+  @media (max-width: 600px) { .sound-wave { padding-inline: 6px; } }
+
   .hero-btn {
     position: absolute;
     left: 76.27%;
@@ -431,9 +435,9 @@
   </div>
 </section>
 
-<div class="art-frame">
-  <img class="edge-fade-both" src="assets/nano-banana/section-sound.jpg" alt="A sound waveform forming the silhouette of a mountain range">
-</div>
+<figure class="sound-wave">
+  <img src="assets/nano-banana/section-sound-wave.webp" width="1990" height="667" alt="A sound waveform forming the silhouette of a mountain range" loading="lazy">
+</figure>
 <section id="sound">
   <div class="wrap reveal">
     <p class="eyebrow">Sound</p>
