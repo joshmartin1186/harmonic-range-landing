@@ -17,6 +17,7 @@
     --terracotta-deep: #8a3f20;
     --muted: #5b5340;
     --line: rgba(27,32,54,0.14);
+    --nav-h: 58px; /* sticky nav height; the desktop hero fills the screen below it */
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -211,8 +212,24 @@
   /* Transparent cutout with the headline baked in: it sits directly on the
      page's paper. Capped in width so it doesn't upscale past its source on
      very wide screens, and above the fold, so it is not lazy-loaded. */
-  .hero { padding: 10px 12px 0; text-align: center; line-height: 0; }
+  .hero { padding: 28px 12px 0; text-align: center; line-height: 0; }
   .hero img { display: block; margin: 0 auto; width: min(100%, 1500px); height: auto; }
+  /* On a real desktop screen the hero IS the first screen: it fills the space
+     under the sticky nav and sits centered in it, sized to fit the height so
+     nothing from the next section peeks in at the bottom. */
+  @media (min-width: 900px) and (min-height: 560px) {
+    .hero {
+      min-height: calc(100vh - var(--nav-h));
+      min-height: calc(100svh - var(--nav-h));
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .hero img {
+      width: auto; height: auto; max-width: min(100%, 1500px);
+      max-height: calc(100vh - var(--nav-h) - 56px);
+      max-height: calc(100svh - var(--nav-h) - 56px);
+    }
+  }
 
   /* ---------- Generic text sections (sit directly under an art-frame) ---------- */
   section { padding: 56px 24px 72px; text-align: center; }
