@@ -267,15 +267,18 @@
     content: "";
     position: absolute;
     left: 0; right: 0;
-    height: 5px;
-    background-image: url("assets/nano-banana/rule-line.jpg");
-    background-size: cover;
-    background-position: center;
+    height: 2px;
+    background: var(--ink); /* matches the card's side borders; the old rule image sat on a tan plate */
     z-index: 2;
   }
   .gear-card::before { top: 0; }
   .gear-card::after { bottom: 0; }
-  .gear-card img { display: block; width: 100%; height: auto; }
+  .gear-card img { display: block; width: calc(100% - 28px); height: auto; margin: 22px 14px 0; }
+  @media (max-width: 600px) {
+    /* let the card use more of a phone's width so the baked-in knob labels stay readable */
+    .gear-card { margin-inline: -14px; }
+    .gear-card img { width: calc(100% - 12px); margin: 16px 6px 0; }
+  }
   .gear-audio {
     padding: 0 32px 24px;
   }
@@ -480,7 +483,7 @@
     <h2 class="section-title">The current release.</h2>
 
     <div class="gear-card">
-      <img src="assets/nano-banana/gear-harmonic-range.jpg" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a mountain-engraved faceplate">
+      <img src="assets/nano-banana/gear-harmonic-range-v2.webp" width="1653" height="842" loading="lazy" alt="Harmonic Range plugin interface with Warmth, Terrain, Altitude, and Mix knobs on a mountain-engraved faceplate">
       <div class="gear-card-body">
         <h3>Harmonic Range</h3>
         <p>Tube warmth, granular texture, and a dense ambient wash, built for the space between an overdrive and a big reverb pedal. VST3 · AU · Standalone.</p>
