@@ -275,7 +275,7 @@
   .gear-card::after { bottom: 0; }
   /* Both pedal images sit in the same fixed-ratio box (contain, never cropped or
      stretched), so the two images are the same height and the titles start on one line. */
-  .gear-media { padding: 34px 32px 0; }
+  .gear-media { padding: 24px 28px 0; }
   .gear-media img { display: block; width: 100%; height: auto; aspect-ratio: 1.85 / 1; object-fit: contain; object-position: center; }
   @media (max-width: 600px) {
     /* let the card use more of a phone's width so the baked-in knob labels stay readable */
@@ -283,8 +283,8 @@
     .gear-media { padding: 22px 8px 0; }
   }
   /* Bottom block: a slot for the sample recording (Listen / Inside), then a quiet Details link. */
-  .gear-audio { margin: 0 40px; padding: 30px 0 34px; border-top: 1px solid var(--line); }
-  .gear-audio .eyebrow { margin-bottom: 14px; }
+  .gear-audio { margin: 0 32px; padding: 18px 0 22px; border-top: 1px solid var(--line); }
+  .gear-audio .eyebrow { margin-bottom: 10px; }
   .gear-audio .caption {
     font-family: 'Special Elite', 'Archivo', monospace;
     font-size: 12px;
@@ -293,7 +293,7 @@
     margin: 12px 0 0;
   }
   .gear-audio .caption a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
-  .gear-audio .gear-details { margin-top: 22px; }
+  .gear-audio .gear-details { margin-top: 12px; }
 
   /* Custom transport -- native <audio controls> can't be styled
      consistently across browsers, so this drives a real <audio> element
@@ -362,25 +362,25 @@
     min-width: 84px;
     text-align: right;
   }
-  .gear-card-body { padding: 38px 40px 0; display: flex; flex-direction: column; flex: 1; }
-  .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0 0 16px; text-transform: uppercase; }
-  .gear-card-body p.gear-desc { color: var(--muted); font-family: 'Special Elite', 'Archivo', monospace; font-size: 13.5px; line-height: 1.85; margin: 0 0 30px; max-width: 46ch; }
+  .gear-card-body { padding: 26px 32px 0; display: flex; flex-direction: column; flex: 1; }
+  .gear-card-body h3 { font-family: 'Rubik Distressed', sans-serif; font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0 0 10px; text-transform: uppercase; }
+  .gear-card-body p.gear-desc { color: var(--muted); font-family: 'Special Elite', 'Archivo', monospace; font-size: 13.5px; line-height: 1.7; margin: 0 0 18px; max-width: 46ch; }
   .gear-price-row {
     display: flex;
     flex-direction: column;
     margin-top: auto;
-    padding-top: 26px;
+    padding-top: 16px;
     border-top: 1px solid var(--line);
   }
-  .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; line-height: 1.2; margin: 0 0 20px; }
+  .gear-price { font-family: 'Rubik Distressed', sans-serif; font-size: 28px; line-height: 1.2; margin: 0 0 14px; }
   .gear-price[hidden] { display: none; }
   .gear-price span { font-family: 'Archivo', sans-serif; font-size: 13px; color: var(--muted); font-weight: 600; text-transform: uppercase; margin-left: 6px; white-space: nowrap; }
   .gear-was { font-family: 'Archivo', sans-serif; font-size: 18px; color: var(--muted); font-weight: 600; margin-right: 4px; }
-  .gear-note { margin: 26px 0 32px; font-size: 14px; line-height: 1.65; color: var(--muted); max-width: 46ch; }
+  .gear-note { margin: 14px 0 20px; font-size: 14px; line-height: 1.65; color: var(--muted); max-width: 46ch; }
   .gear-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
   /* Two products side by side. The section is wider than the page's 900px column so each card keeps its knob labels readable. */
   #gear .wrap { max-width: 1240px; }
-  .gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; row-gap: 0; margin: 48px auto 0; align-items: stretch; }
+  .gear-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 28px; row-gap: 0; margin: 36px auto 0; align-items: stretch; }
   .gear-grid .gear-card { max-width: none; margin: 0; display: flex; flex-direction: column; }
   @media (max-width: 899px) { .gear-grid { grid-template-columns: 1fr; row-gap: 32px; } }
   @media (max-width: 600px) {
