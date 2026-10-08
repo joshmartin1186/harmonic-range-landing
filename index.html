@@ -364,14 +364,12 @@
   .gear-note { margin: 12px 0 0; font-size: 14px; color: var(--muted); }
   .gear-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
 
-  /* ---------- Footer (art-frame with real content overlaid in its open sky) ---------- */
+  /* ---------- Footer: the art, then the content on the paper beneath it ---------- */
   .footer-frame { position: relative; width: 100%; line-height: 0; }
-  .footer-frame img { display: block; width: 100%; height: auto; }
+  .footer-art { margin: 0; padding: 36px 12px 0; text-align: center; }
+  .footer-art img { display: block; margin: 0 auto; width: min(100%, 1500px); height: auto; }
   .footer-overlay {
-    position: absolute;
-    left: 50%;
-    top: 21%;
-    transform: translate(-50%, -50%);
+    padding: 44px 24px 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -380,7 +378,7 @@
   }
   .footer-overlay img { width: 8%; min-width: 34px; max-width: 60px; height: auto; }
   .footer-overlay .tagline { font-family: 'Rubik Distressed', sans-serif; font-size: clamp(12px, 1.6vw, 16px); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.6; }
-  .footer-overlay .fine { font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); margin-top: 2px; }
+  .footer-overlay .fine { line-height: 1.5; font-family: 'Special Elite', 'Archivo', monospace; font-size: clamp(10px, 1.1vw, 12.5px); color: var(--muted); margin-top: 2px; }
   .footer-overlay a { text-decoration: underline; }
 
   /* ---------- Video embed ---------- */
@@ -510,7 +508,9 @@
 <div class="rule-divider"></div>
 
 <div class="footer-frame">
-  <img class="edge-fade-top" src="assets/nano-banana/section-footer.jpg" alt="A mountain horizon under a starry sky">
+  <figure class="footer-art">
+    <img src="assets/nano-banana/section-footer-v2.webp" width="1975" height="682" alt="A mountain valley under a dusk sky of layered orange and blue bands" loading="lazy">
+  </figure>
   <div class="footer-overlay">
     <img src="assets/nano-banana/logo-mark.png" alt="Sawatch Audio">
     <div class="tagline">Sawatch Audio · Sounds of the West</div>
