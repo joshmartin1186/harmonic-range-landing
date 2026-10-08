@@ -199,6 +199,11 @@
   .art-frame.crop-height { aspect-ratio: 2.69; overflow: hidden; }
   .art-frame.crop-height img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 
+  /* A transparent cutout (no paper plate of its own), so it sits directly on
+     the page's paper instead of reading as a tinted rectangle. */
+  .campfire { margin: 0; padding: 20px 24px 0; text-align: center; line-height: 0; }
+  .campfire img { display: block; margin: 0 auto; width: min(100%, 400px); height: auto; }
+
   .hero-btn {
     position: absolute;
     left: 76.27%;
@@ -410,9 +415,9 @@
   <a class="hero-btn" href="#sound" aria-label="Explore the sound"></a>
 </div>
 
-<div class="art-frame crop-height">
-  <img class="edge-fade-both-tight" src="assets/nano-banana/section-philosophy.jpg" alt="A small campfire with smoke drifting up into a starry sky">
-</div>
+<figure class="campfire">
+  <img src="assets/nano-banana/section-campfire.webp" width="883" height="909" alt="A campfire of crossed logs ringed with stones, flames and smoke rising" loading="lazy">
+</figure>
 <section id="philosophy">
   <div class="wrap reveal">
     <p class="eyebrow">Philosophy</p>
